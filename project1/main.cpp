@@ -1142,10 +1142,10 @@ void Foo2()
 //}
 */
 /*-------------------------------------------------------------------Параметры по умолчанию. Передача аргументов в функцию по умолчанию
-*/
+
 #include<iostream>
 
-void Foo(int a = 5)
+void Foo(int q, int a = 5, double b = 0.5)
 {
 	for (int i = 0; i < a; i++)
 	{
@@ -1155,23 +1155,115 @@ void Foo(int a = 5)
 
 void main()
 {
-	Foo();
+	Foo(10);
+}
+*/
+/*-------------------------------------------------------------------inline c++ что это. Ключевое слово inline. Встраиваемая функция
+
+#include <iostream>
+
+inline int Sum(int a, int b)//--------------программа просто сразу выполнит сложение вместо того чтобы передавать параметры и т.д
+{
+	return a + b;
 }
 
 
+void main()
+{
+	
+	std::cout << Sum(3, 5) << std::endl;
+}
+*/
+/*-------------------------------------------------------------------Перегрузка функций
+#include <iostream>
 
+int Sum(int a, int b, int c)
+{
+	a++;
+	return a + b + c;
+}
 
+int Sum(int a, int b)
+{
+	return a + b;
+}
 
+double Sum(double a, double b)
+{
+	return a + b;
+}
 
+void main()
+{
+	std::cout<<Sum(5, 4)<<std::endl;
+	std::cout << Sum(3.45, 5.356) << std::endl;
+	std::cout << Sum(4, 6 , 23) << std::endl;
+}
+//------------------------функции могут иметь одинаковое значение, а также может иметь разную реализацию 
+*/
+/*-------------------------------------------------------------------Шаблоны функций
+#include <iostream>
 
+//template <typename T1, typename T2>
+//T Sum(int a , int b)//-----------T вместо типа данных
+//T2 Sum(T1 a, T2 b)//-------------из за T2 функция вернет double
+//{
+//	return a + b;
+//}
 
+//template <typename T1, typename T2>
+//void Sum(T1 a, T2 b)
+//{
+//	std::cout << a << std::endl;
+//	std::cout << b << std::endl;
+//}
+//
+//void main()
+//{
+//	Sum(2.5, "Parametr");
+//}
+template <class T>
+void Sum(T a)
+{
+	std::cout << a << std::endl;
+}
 
+void main()
+{
+	Sum(2);
+}
+//---------------------class и typename это ОДНО И ТОЖЕ
+*/
+/*-------------------------------------------------------------------Функции и стек
 
+#include <iostream>
+void main()
+{
+..--------------------------------файл paint
+}
+*/
+/*-------------------------------------------------------------------Рекурсия и цикл
+*/
+#include <iostream>
+//-----------------------рекурсия это вызов функции самой себя
 
+int Foo(int a)
+{
+	if (a < 1)
+	{
+		return 0;
+	}
+	a--;
 
+	std::cout << a << std::endl;
+	
+	return Foo(a);
+}
 
-
-
+void main()
+{
+	Foo(5);
+}
 
 
 
