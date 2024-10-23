@@ -1706,25 +1706,63 @@ void main()
 }
 */
 /*------------------------------------------------------------------- онстантные аргументы функции. онстантный указатель. онстантные параметры
-*/
+----------------- опирование динамического массива
 
 #include <iostream>
 
-void FillArray()
+void FillArray(int* const arr, const int size)
 {
-
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = rand() % 10;
+	}
 }
 
-void ShowArray()
+void ShowArray(const int*const arr, const int size)
 {
-
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << arr[i] << '\t';
+	}std::cout << std::endl;
 }
 
 void main()
 {
-	int a = 5;
-}
+	int size = 10;
 
+	int* firstArray = new int[size];
+	int* secondArray = new int[size];
+	
+	FillArray(firstArray, size);
+	FillArray(secondArray, size);
+
+	std::cout << "FirstArray =\t";
+	ShowArray(firstArray, size);
+
+	std::cout << "secondArray =\t";
+	ShowArray(secondArray, size);
+
+	//firstArray = secondArray; -----------неудачна€ попытка присвоить значени€ массива
+
+	delete[] firstArray; //---------чистим данные первого массива
+
+	firstArray = new int[size]; //-----перевыдел€ем место в пам€ти
+	for (int i = 0; i < size; i++)
+	{
+		firstArray[i] = secondArray[i]; //----каждому элементу 1 массива присваиваем значени€ 2 массива. ѕо сути мы создаем новый массив и выполн€ем копирование из второго массива в новый первый
+	}
+
+	std::cout << "==============================================" << std::endl;
+	std::cout << "FirstArray =\t";
+	ShowArray(firstArray, size);
+
+	std::cout << "secondArray =\t";
+	ShowArray(secondArray, size);
+
+	delete[] firstArray; //--------чистим данные массивов
+	delete[] secondArray;
+}
+*/
 
 
 
