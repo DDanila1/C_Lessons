@@ -1763,14 +1763,77 @@ void main()
 	delete[] secondArray;
 }
 */
+/*-------------------------------------------------------------------Изменить размер массива. Удалить. Добавить элемент в массив. Увеличение массива
+
+#include <iostream>
+
+void FillArray(int* const arr, const int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = rand() % 10;
+	}
+}
+
+void ShowArray(const int* const arr, const int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << arr[i] << '\t';
+	}std::cout << std::endl;
+}
+
+void push_back(int*& arr, int &size, int value)
+{
+	int* newArray = new int[size + 1];
+	for (int i = 0; i < size; i++)
+	{
+		newArray[i] = arr[i];
+	}
+	newArray[size] = value; //   =[size++]
+	size++;
+
+	delete[] arr;
+
+	arr = newArray;
+}
+//Передавая указатель на массив в int* arr, мы  передаем его по значению т.е. создается новый указатель, в который присваивается адрес массива. 
+//По-этому arr из параметров функции и arr из main- совершенно разные указатели, указывающие на один и тот же массив. 
+//Изменить этот массив можно как из функции, так и из main. Но изменение адреса указателя(arr) в функции никак не повлияет на указатель(arr) из main.
+//Передавая указатель на массив в int*& arr, мы передаем его(указатель) по ссылке т.е.  arr из функции- ссылка на arr(указатель) из main. 
+//Это значит, что все изменения с arr из функции отразятся на arr из main. Значит, ссылка на указатель(int *&) позволяет передать указатель в функцию не по значению,  а по ссылке. 
+//Это в свою очередь позволяет производить изменения напрямую с arr из main (как с данными так и с самим указателем (допустим, присвоить указателю новый массив))
 
 
+void pop_back(int*& arr, int& size)
+{
+	size--;
+	int* newArray = new int[size];
+	for (int i = 0; i < size; i++)
+	{
+		newArray[i] = arr[i];
+	}
+	delete arr;
 
+	arr = newArray;
+}
 
+void main()
+{
+	int size = 5;
+	int* arr = new int[size];
 
+	FillArray(arr, size);
+	ShowArray(arr, size);
+	push_back(arr, size, 1);
+	ShowArray(arr, size);
+	pop_back(arr, size);
+	ShowArray(arr, size);
 
-
-
+	delete[]arr;
+}
+*/
+/*-------------------------------------------------------------------Строки в c++. Нуль терминатор. char*/
 
 
 
