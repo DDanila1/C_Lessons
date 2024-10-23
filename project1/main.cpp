@@ -1725,6 +1725,7 @@ void main()
 	system("chcp 1251");
 
 	int a = 5;
+	int b = a;
 }
 
 
