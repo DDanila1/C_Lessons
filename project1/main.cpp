@@ -1302,8 +1302,7 @@ void main()
 }---------------------------файл paint
 */
 /*-------------------------------------------------------------------Указатели. Указатели c++ разыменование
-*/ //-------------------переменная указывающая на адрес другой переменной
-/*-------------------------------------------------------------------Указатели
+----------------------переменная указывающая на адрес другой переменной
 #include <iostream>
 void main()
 {
@@ -1312,7 +1311,7 @@ void main()
 
 	int* px = &a;//-----------указываем адрес памяти в которой лежит переменная a
 	//--------------------- * значит что переменная типа указатель
-	// & - амперсант - оператор взятия адреса, то есть берем адркм у переменной a и указываем переменной x
+	// & - амперсант - оператор взятия адреса, то есть берем адрес у переменной a и указываем переменной x
 
 	//double* px = &a; //---------тип указателя double, а значение типа адреса переменной, на которую указываем - int. Так делать нельзя
 
@@ -1648,7 +1647,6 @@ void main()
 
 void main()
 {
-	system("chcp 1251");
 	//int SIZE = 0;//---------------размер можно изменить, поэтому не const
 	int SIZE = 5;
 	//std::cin >> SIZE;
@@ -1763,8 +1761,7 @@ void main()
 	delete[] secondArray;
 }
 */
-/*-------------------------------------------------------------------Изменить размер массива. Удалить. Добавить элемент в массив. Увеличение массива
-
+//-------------------------------------------------------------------Изменить размер массива. Удалить. Добавить элемент в массив. Увеличение массива
 #include <iostream>
 
 void FillArray(int* const arr, const int size)
@@ -1790,20 +1787,20 @@ void push_back(int*& arr, int &size, int value)
 	{
 		newArray[i] = arr[i];
 	}
-	newArray[size] = value; //   =[size++]
+	newArray[size] = value; //   = [size++]
 	size++;
 
 	delete[] arr;
 
 	arr = newArray;
 }
+
 //Передавая указатель на массив в int* arr, мы  передаем его по значению т.е. создается новый указатель, в который присваивается адрес массива. 
-//По-этому arr из параметров функции и arr из main- совершенно разные указатели, указывающие на один и тот же массив. 
+//По-этому arr из параметров функции и arr из main - совершенно разные указатели, указывающие на один и тот же массив. 
 //Изменить этот массив можно как из функции, так и из main. Но изменение адреса указателя(arr) в функции никак не повлияет на указатель(arr) из main.
 //Передавая указатель на массив в int*& arr, мы передаем его(указатель) по ссылке т.е.  arr из функции- ссылка на arr(указатель) из main. 
 //Это значит, что все изменения с arr из функции отразятся на arr из main. Значит, ссылка на указатель(int *&) позволяет передать указатель в функцию не по значению,  а по ссылке. 
 //Это в свою очередь позволяет производить изменения напрямую с arr из main (как с данными так и с самим указателем (допустим, присвоить указателю новый массив))
-
 
 void pop_back(int*& arr, int& size)
 {
@@ -1818,21 +1815,113 @@ void pop_back(int*& arr, int& size)
 	arr = newArray;
 }
 
+void change(int*& arr, int& size)
+{
+	int* newArray = new int[size];
+	for (int i = 0; i < size; i++)
+	{
+		newArray[i] = arr[i];
+	}
+
+	int temp = newArray[size - 1];
+	newArray[size - 1] = newArray[0];
+	newArray[0] = temp;
+
+	delete arr;
+
+	arr = newArray;
+}
+
+void change_begin(int*& arr, int& size, int value)
+{
+	int* newArray = new int[size];
+	for (int i = 0; i < size; i++)
+	{
+		newArray[i] = arr[i];
+	}
+
+	newArray[0] = value;
+
+	delete arr;
+
+	arr = newArray;
+}
+
+void del_mid(int*& arr, int& size, int index)
+{
+	if (index < 0 || index >= size)
+	{
+		std::cout << "Error, index is too big or small!" << std::endl;
+		return;
+	}
+	else
+	{
+		int newsize = index + 1;
+		int* NewArr = new int[newsize];
+
+		for (int i = 0; i < newsize; i++)
+		{
+			NewArr[i] = arr[i];
+		}
+
+		delete[] arr;
+		arr = NewArr;
+		size = newsize;
+	}
+}
+
+void add_mid(int*& arr, int& size, int value, int index)
+{
+	int* newArr = new int[size+1];
+
+	for (int i = 0; i < size; i++)
+	{
+		newArr[i] = arr[i];
+	}
+	
+	newArr[index] = value;
+
+	size++;
+
+	for (int i = index + 1; i < size; i++)
+	{
+		newArr[i] = arr[i - 1];
+	}
+
+	delete[] arr;
+	arr = newArr;
+}
+
 void main()
 {
 	int size = 5;
 	int* arr = new int[size];
 
 	FillArray(arr, size);
+
 	ShowArray(arr, size);
-	push_back(arr, size, 1);
+
+	push_back(arr, size, 1); //-----------функция добавления числа назад
 	ShowArray(arr, size);
-	pop_back(arr, size);
+
+	pop_back(arr, size);//-----------функция удаления последнего числа
+	ShowArray(arr, size);
+
+	change(arr, size);//-----------функция смены первого и последнего чисел
+	ShowArray(arr, size);
+
+	change_begin(arr, size, 333);//-----------функция смены первого числа
+	ShowArray(arr, size);
+
+	del_mid(arr, size, 2);//-----------функция удаления числа из середины
+	ShowArray(arr, size);
+
+	add_mid(arr, size, 8, 2);//-----------функция добавления числа в середину
 	ShowArray(arr, size);
 
 	delete[]arr;
 }
-*/
+
 /*-------------------------------------------------------------------Строки в c++. Нуль терминатор. char*/
 
 
