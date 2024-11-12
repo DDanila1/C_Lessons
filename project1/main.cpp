@@ -1762,6 +1762,7 @@ void main()
 }
 */
 //-------------------------------------------------------------------Изменить размер массива. Удалить. Добавить элемент в массив. Увеличение массива
+/*
 #include <iostream>
 
 void FillArray(int* const arr, const int size)
@@ -1921,8 +1922,340 @@ void main()
 
 	delete[]arr;
 }
+*/
+/*-------------------------------------------------------------------Строки в c++. Нуль терминатор. char
 
-/*-------------------------------------------------------------------Строки в c++. Нуль терминатор. char*/
+#include <iostream>
+
+void main()
+{
+	//char symbol = 'a';  //------может хранить один символ
+	//std::cout << symbol << std::endl;
+
+	//char string[] = "Hello World!";  //------размер можно указывать, а можно нет. Компилятор сам расчитает количество элементов
+
+	//std::cout << string << std::endl;
+	
+	char string[] = {'H', 'e', 'l', 'l', 'o', ',', 'W', 'o', 'r', 'l', 'd', '!', '\0'};
+
+	std::cout << strlen(string) << std::endl;
+
+	//------нужно указывать терминирующий ноль чтобы при выводе выводился нужный текст, ибо без такого нуля будет выведено много ненужного
+}
+*/
+/*-------------------------------------------------------------------Приведение типов в стиле с. Явное и неявное преобразование типов
+#include <iostream>
+
+void main() {
+	int a = 33.3;
+	int b = 34.1534;
+
+	std::cout << (int)a << std::endl;  //---явное преобразование -------преобразовываем
+	std::cout << b << std::endl;  //-----неявное преобразование
+	//     преобразования есть сужающиеся и расширяющиеся
+}
+*/
+/*-------------------------------------------------------------------Что такое ascii символы. ascii что это такое? Таблица ascii c++
+#include <iostream>
+
+void main() {
+	std::cout << sizeof(char) << std::endl;  //--------char занимает 1 байт (==8бит)
+
+	setlocale(LC_ALL, "Rus");
+
+	for (int i = 0; i <= 255; i++)
+	{
+		std::cout << "code = " << i << '\t' << "char = " << (char)i << std::endl;
+	}
+}
+*/
+/*-------------------------------------------------------------------Указатели символьные строки и функции. Строки и указатели в c++
+#include <iostream> 
+
+void Foo(const char *str) {
+	std::cout << strlen(str) << std::endl;
+}
+
+void main() {
+	const char* str = "Hello";
+
+	//const char* strArr[] = { "Hello", "World", "test" };
+
+	//for (int i = 0; i < 3; i++) {
+	//	std::cout << strArr[i] << std::endl;
+	//}
+
+	//char str[] = "Hello";
+	
+	//const char* string = str;
+
+	//std::cout << string << std::endl;
+
+	Foo(str);
+}
+//---------домашняя работа
+#include <iostream>
+
+int strLen(const char* str) {
+	int counter = 0;
+
+	while (str[counter] != '\0')
+	{
+		counter++;
+	}
+	return counter;
+}
+
+void main() {
+	const char *str = "Hello";
+	//char str[] = { 'H', 'e', 'l','l', '\0' };
+	std::cout << strLen(str) << std::endl;;
+}
+*/
+/*-------------------------------------------------------------------Конкатенация строк что это. Объединение строк.Тип данных string c++ что это
+#include <iostream>
+#include <string.h>
+//---------------------конкатенация это объединение нескольких строк
+void main() {
+	std::string str1 = "Hello";
+	std::string str2 = "World";
+	std::string result;
+
+	result = str1 + " " + str2;
+
+	std::cout << result << std::endl;
+
+	//char result[255]{};
+	//char str1[255] = "Hello";
+	//char str2[255] = "World";
+
+	//std::cout << str1 << std::endl;
+
+	//strcat_s(result, str1);  //----------к result приписывается str1 потом str2
+	//strcat_s(result, str2);
+
+	//std::cout << result << std::endl;
+}
+*/
+/*-------------------------------------------------------------------Указатель на функцию в качестве параметра
+
+#include <iostream>
+#include <string>
+//---тип функции(*имя указателя)(спецификация параметров);
+
+//int Foo1(int a) {
+//	return a - 1;
+//}
+//
+//int Foo2(int a) {
+//	return a * 2;
+//}
+
+std::string GetDataFromDB() {
+	return "Data from DB";
+}
+
+std::string GetDataFromWebServer() {
+	return "Data From WebServer";
+}
+
+std::string GetDataFromAstral() {
+	return "Data from Astral";
+}
+
+//void ShowInfo(bool isfromBD) {
+//	if (isfromBD) {
+//		std::cout << DataFromDB() << std::endl;
+//	}
+//	else {
+//		std::cout << DataFromWebServer() << std::endl;
+//	}
+//}
+
+void ShowInfo(std::string(*foo)()) {
+	std::cout << foo() << std::endl;
+}
+
+void main() {
+	//int (*fooPointer)(int a);
+	
+	//fooPointer = Foo1;
+	
+	//std::cout << fooPointer(5) << std::endl;
+
+	//std::cout << Foo2(5) << std::endl;
+
+	//ShowInfo();
+
+	ShowInfo(GetDataFromDB);
+}
+*/
+/*-------------------------------------------------------------------Препроцессор что это. Директива #define. Макросы
+
+#include <iostream>
+#define PI 3.14
+#define tab '\t'
+
+void main() {
+	std::cout << "text" << tab << "text" << std::endl;
+}
+*/
+/*-------------------------------------------------------------------c++ макрос функция. Макросы с аргументами
+
+#include <iostream>
+#define FOO(x, y) ((x) * (y))
+
+void main() {
+	std::cout << FOO(5, 6) << std::endl;
+}
+*/
+/*-------------------------------------------------------------------Условная компиляция. #ifdef #else #endif #if #elif #endif #ifndef что это
+
+#include <iostream>
+#define DEBUG 5
+
+void main() 
+{
+#ifdef DEBUG
+	std::cout << "Beginning of a cycle" << std::endl;
+#endif
+
+	for (int i = 0; i < 4; i++)
+	{
+		std::cout << i << std::endl;
+	}
+
+//#ifdef DEBUG
+//	std::cout << "Debag" << std::endl;
+//#if DEBUG > 4
+//	std::cout << "Debag > 4" << std::endl;
+//#elif DEBUG ==5 // -----то же что и else if
+//	std::cout << "Debag == 5" << std::endl;
+//#ifndef DEBUG //----то же самое что и else
+//	std::cout << "Debag2" << std::endl;
+//#else
+//	std::cout << "Not Debag" << std::endl;
+//#endif
+}
+*/
+/*-------------------------------------------------------------------Условный тернарный оператор что это. Как работает
+
+#include <iostream>
+
+void main()
+{
+	//int a = 5;
+	//a++;//------унарный оператор
+	////----бинарный а+b
+
+	int a;
+	std::cin >> a;
+
+	if (a<10)
+	{
+		std::cout << "a<10" << std::endl;
+	}
+	else if (a>10)
+	{
+		std::cout << "a>10" << std::endl;
+	}
+	else
+	{
+		std::cout << "a=10" << std::endl;
+	}
+
+	a > 10 ? std::cout << "a>10" << std::endl : a < 10 ? std::cout << "a<10" << std::endl : std::cout << "a=10" << std::endl;
+
+}
+*/
+/*-------------------------------------------------------------------argc argv c++ что это. Параметры функции main argc argv. Аргументы main
+
+#include <iostream>
+
+void main(int argc, char* argv[])//---argc - arguments count кол-во аргументов, argv[] - массив строк описание того что мы передаем
+{
+	for (int i = 0; i < argc; i++)
+	{
+		std::cout << argv[i] << std::endl;
+	}
+
+	system("pause");
+}
+*/
+/*-------------------------------------------------------------------int main или void main
+
+#include <iostream>
+
+int main()  //---------Cтандарт C++. Нужен возврат 0 чтобы другие модули которые вызывают эту программу могли знать результат работы нашей программы
+{
+	
+	return 0;
+}
+
+//void main()  //--------ничего не возвращаем потому что необязательно и не мешает если программа не столь серьезна
+//{
+
+//}
+*/
+/*===================================================================Что такое ООП простыми словами. Объектно ориентированное программирование
+* Что такое объект класса. Экземпляр класса это
+*/
+#include <iostream>
+#include <string>
+
+class Human 
+{
+public: //-----модификатор доступа
+
+	//----поля класса
+	int age;  //------свойства класса: возраст и имя
+	int weight;
+	std::string name;
+
+
+
+};
+
+int main()
+{
+	Human firstHuman;  //--------- firstHuman-это объект класса
+
+	firstHuman.age = 30;
+	firstHuman.name = "Ivan";
+	firstHuman.weight = 100;
+
+	std::cout << firstHuman.age << std::endl;
+	std::cout << firstHuman.name << std::endl;
+	std::cout << firstHuman.weight << std::endl;
+
+	std::cout << "---------------------------------------" << std::endl;
+
+	Human secondHuman;
+
+	secondHuman.age = 19;
+	secondHuman.name = "Noname";
+	secondHuman.weight = 88;
+
+	std::cout << secondHuman.age << std::endl;
+	std::cout << secondHuman.name << std::endl;
+	std::cout << secondHuman.weight << std::endl;
+
+
+
+
+
+
+
+	return 0;
+}
+
+
+
+
+
+
+
+
 
 
 
