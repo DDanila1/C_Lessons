@@ -2199,7 +2199,7 @@ int main()  //---------Cтандарт C++. Нужен возврат 0 чтоб
 */
 /*===================================================================Что такое ООП простыми словами. Объектно ориентированное программирование
 * Что такое объект класса. Экземпляр класса это
-*/
+
 #include <iostream>
 #include <string>
 
@@ -2211,9 +2211,6 @@ public: //-----модификатор доступа
 	int age;  //------свойства класса: возраст и имя
 	int weight;
 	std::string name;
-
-
-
 };
 
 int main()
@@ -2240,14 +2237,453 @@ int main()
 	std::cout << secondHuman.name << std::endl;
 	std::cout << secondHuman.weight << std::endl;
 
+	return 0;
+}
+*/
+/*-------------------------------------------------------------------Методы класса. Что такое методы в программировании. Вызов метода класса. Функции
+метод класса = функция класса
+
+#include <iostream>
+#include <string>
+
+class Human
+{
+public: //-----модификатор доступа
+
+	//----поля класса
+	int age;  //------свойства класса: возраст и имя
+	int weight;
+	std::string name;
+	
+	void Print()//---------метод класса
+	{
+		std::cout << "Name: " << name << "\nAge: " << age << "\nWeight: " << weight << std::endl << std::endl;
+	}
+
+};
+
+int main()
+{
+	Human firstHuman;
+
+	firstHuman.age = 30;
+	firstHuman.name = "Ivan";
+	firstHuman.weight = 100;
+
+	firstHuman.Print();
+
+	Human secondHuman;
+
+	secondHuman.age = 23;
+	secondHuman.name = "Aleksey";
+	secondHuman.weight = 88;
+
+	secondHuman.Print();
+
+	return 0;
+}
+*/
+/*-------------------------------------------------------------------Модификаторы доступа классов. public private protected что это. Спецификаторы доступа
+private:
+protected:
+public:
+
+#include <iostream>
+#include <string>
+
+class Point
+{
+public:
+	int x;
+	void Print()
+	{
+		std::cout << "x: " << x << "\ny: " << y << "\nz: " << z << std::endl << std::endl;
+		PrintY();
+	}
 
 
+private:  //-----недоступно извне, но доступно внутри класса и дружественных классов и функций
+	int y;
+	int z;
+	//void Print()
+	//{
+	//	std::cout << "x: " << x << "\ny: " << y << "\nz: " << z << std::endl << std::endl;
+	//}
+	void PrintY()
+	{
+		std::cout << "y: " << y << std::endl;
+	}
+};
 
+int main()
+{
+	Point a;
+	a.Print();
 
+	return 0;
+}
+*/
+/*-------------------------------------------------------------------Что такое геттеры и сеттеры для класса. Методы get и set. Инкапсуляция это
+
+//--------------------Get нужно получить, Set нужно чтобы установить значение для полей класса
+#include <iostream>
+#include <string>
+
+class Human
+{
+public: 
+	int age;
+	int weight;
+	std::string name;
+};
+
+class Point
+{
+private:
+	int x;
+	int y;
+
+public:
+	int GetX()
+	{
+		return x;
+	}
+
+	void SetX(int valueX)
+	{
+		x = valueX;
+	}
+
+	void SetY(int valueY)
+	{
+		y = valueY;
+	}
+
+	int GetY()
+	{
+		return y;
+	}
+
+	void Print()
+	{
+		std::cout << "X: " << x << "\nY: " << y << std::endl;
+	}
+
+};
+
+int main()
+{
+	Point a;
+	a.SetX(5);
+	a.SetY(21);
+	//a.Print();
+	std::cout << a.GetX() << std::endl;
+	std::cout << a.GetY() << std::endl;
+	
+	return 0;
+}
+//----------геттеры и сеттеры нужны чтобы другой программист не нарушал логику работы вашего класса
+*/
+/*-------------------------------------------------------------------Инкапсуляция ООП пример. private методы. Что такое инкапсуляция
+
+#include <iostream>
+
+class CoffeGrinder
+{
+private:
+	bool ChechVoltage()
+	{
+		return true;
+	}
+
+public:
+	void Start()
+	{
+		//bool VoltageIsNormal = ChechVoltage();
+
+		if (ChechVoltage())
+		{
+			std::cout << "Vjooooh" << std::endl;
+		}
+		else
+		{
+			std::cout << "Beep Beep" << std::endl;
+		}
+	}
+};
+
+int main()
+{
+	CoffeGrinder a;
+	a.Start();
 
 
 	return 0;
 }
+*/
+/*-------------------------------------------------------------------Конструктор класса пример. Зачем нужен. Конструктор с параметрами. Конструктор по умолчанию
+
+#include <iostream>
+
+class Point
+{
+private:
+	int x;
+	int y;
+
+public:
+
+	//Point()  //------------конструктор по умолчанию( для конструктора по умолчанию можно это не писать) инициализирует мусором
+	//{
+    //
+	//}
+
+	Point(int valueX, int valueY)
+	{
+		x = valueX;
+		y = valueY;
+	}
+
+	int GetX()
+	{
+		return x;
+	}
+
+	void SetX(int valueX)
+	{
+		x = valueX;
+	}
+
+	void SetY(int valueY)
+	{
+		y = valueY;
+	}
+
+	int GetY()
+	{
+		return y;
+	}
+
+	void Print()
+	{
+		std::cout << "X: " << x << "\nY: " << y << std::endl << std::endl;
+	}
+};
+
+int main()
+{
+	Point a(5, 34);  //----объект а класса Point создастся с данными 5,34
+	a.Print();
+
+	Point b(33245, 1245);
+	b.Print();
+
+	return 0;
+}
+*/
+/*-------------------------------------------------------------------Перегрузка конструкторов класса. Что такое перегрузка. Как перегрузить конструктор
+
+#include <iostream>
+
+class Point
+{
+private:
+	int x;
+	int y;
+
+public:
+
+	Point()
+	{
+		x = 0;
+		y = 0;
+	}
+
+	Point(int valueX, int valueY)
+	{
+		x = valueX;
+		y = valueY;
+	}
+
+	Point(int valueX, bool boolean)
+	{
+		x = valueX;
+		if (boolean)
+		{
+			y = 1;
+		}
+		else
+		{
+			y = -1;
+		}
+	}
+
+	int GetX()
+	{
+		return x;
+	}
+
+	void SetX(int valueX)
+	{
+		x = valueX;
+	}
+
+	void SetY(int valueY)
+	{
+		y = valueY;
+	}
+
+	int GetY()
+	{
+		return y;
+	}
+
+	void Print()
+	{
+		std::cout << "X: " << x << "\nY: " << y << std::endl << std::endl;
+	}
+};
+
+int main()
+{
+	Point a;
+	a.Print();
+
+	Point b(4, 25);
+	b.Print();
+
+	Point c(2, true);  //------бесмысленный конструктор. Создан дял примера перегрузки 
+	c.Print();
+
+	return 0;
+}
+*/
+/*-------------------------------------------------------------------Деструктор что это. Зачем нужен деструктор класса в ООП. Деструктор с параметрами
+
+#include <iostream>
+//-------------------- деструктор нужен для разрушения объекта класса. Вызывается сам когда происход уничтожение объекта(выходит из зоны видимости)
+//------деструктор только один в классе! 
+//------деструктора с параметрами быть не может!
+class MyClass
+{
+private:
+	int* data;
+
+public:
+	MyClass(int size)
+	{
+		data = new int [size];
+
+		for (int i = 0; i < size; i++)
+		{
+			data[i] = i;
+		}
+		std::cout << "Object " << data << "\tConstructor has called!" << std::endl;
+	}
+
+	~MyClass()  //------ ~ называется тильда
+	{
+		delete[] data;
+		std::cout << "Object " << data << "\tDestructor has called!" << std::endl;
+	}
+
+};
+
+void Foo()
+{
+	std::cout << "Foo starting" << std::endl;
+	MyClass a(1);
+	std::cout << "Foo ending" << std::endl;
+}
+
+int main()
+{
+	Foo();
+
+	//MyClass b(2);
+
+	return 0;
+}
+*/
+/*-------------------------------------------------------------------Ключевое слово this в ООП. Что означает. Что это такое. Для чего нужен this указатель
+
+#include <iostream>
+
+class Point
+{
+private:
+	int x;
+	int y;
+
+public:
+
+	Point()
+	{
+		x = 0;
+		y = 0;
+		std::cout << this << "\tConstructor" << std::endl;  //----адрес в памяти создаваемого объекта
+
+		//this->   синтаксис
+		
+	}
+
+	Point(int valueX, int valueY)
+	{
+		x = valueX;
+		y = valueY;
+		std::cout << this << "\tConstructor" << std::endl;
+	}
+
+
+	int GetX()
+	{
+		return x;
+	}
+
+	void SetX(int valueX)
+	{
+		x = valueX;
+	}
+
+	void SetY(int y)
+	{
+		this -> y = y;  //-----поле y мы инициализируем передаваемым y
+	}
+
+	int GetY()
+	{
+		return y;
+	}
+
+	void Print()
+	{
+		std::cout << "X: " << x << "\nY: " << y << std::endl << std::endl;
+	}
+};
+
+int main()
+{
+	Point a;
+	a.Print();
+
+	//------------------ this это указатель объекта на самого себя. Можем использовать только внутри класса. this хранит адрес памяти объекта
+
+	return 0;
+}
+*/
+/*-------------------------------------------------------------------Конструктор копирования. Что это. Пример. Когда вызывается Копирование объектов по умолчанию
+*/
+
+
+
+
+
+
+
+
+
+
+
 
 
 
